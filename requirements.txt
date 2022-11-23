@@ -1,0 +1,6 @@
+flask-jwt-extended
+flask-restx
+marshmallow
+flask-sqlalchemy
+python-dotenv
+passlib
