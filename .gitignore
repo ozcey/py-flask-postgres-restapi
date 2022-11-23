@@ -1,2 +1,5 @@
 request.json
 project_setup.md
+instance
+__pycache__
+.venv
