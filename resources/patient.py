@@ -1,4 +1,4 @@
-from flask import request, abort
+from flask import request, abort, jsonify
 from flask_restx import Namespace, Resource, fields
 from models.patient import PatientModel
 from models.address import AddressModel
@@ -38,6 +38,7 @@ patient_output = api.inherit(
 
 )
 
+
 @api.route('')
 @api.doc(
     responses={
@@ -50,7 +51,7 @@ class PatientList(Resource):
     @api.marshal_list_with(patient_output)
     def get(self):
         return PatientModel.find_all()
-    
+
     @api.expect(patient_input, validate=True)
     @api.marshal_with(patient_output)
     def post(self):
@@ -69,7 +70,7 @@ class PatientList(Resource):
         try:
             patient.save()
         except SQLAlchemyError:
-            abort(500, 'An error occurred while creating patient')
+            abort(400, 'An error occurred while creating patient')
         return patient, 201
 
 
@@ -87,9 +88,32 @@ class Patient(Resource):
         patient = PatientModel.find_by_id(patient_id)
         if not patient:
             abort(404, f'Patient not found with id {patient_id}')
+        return patient        
+
+    @api.expect(patient_input, validate=True)
+    @api.marshal_with(patient_output)
+    def put(self, patient_id):
+        patient = PatientModel.find_by_id(patient_id)
+        if not patient:
+            abort(404, f'Patient not found with id {patient_id}')
+        patient_data = request.get_json();
+        updated_address = AddressModel(**patient_data['address'])
+        updated_patient = {
+            "name": patient_data['name'],
+            "ssn": patient_data['ssn'],
+            "email": patient_data['email'],
+            "phone": patient_data['phone'],
+            "age": patient_data['age'],
+            "gender": patient_data['gender']
+        }
+        patient = PatientModel(id=patient_id, **updated_patient)
+        patient.address = updated_address
+        try:
+            patient.update()
+        except SQLAlchemyError as e:
+            abort(400, 'An error occurred while updating patient')
         return patient
     
-    # TODO: Set uo postgres then try using delete 
     def delete(self, patient_id):
         patient = PatientModel.find_by_id(patient_id)
         if not patient:

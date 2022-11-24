@@ -3,10 +3,15 @@ from flask_restx import Api
 from db import db
 from resources.patient import api as patient_namespace
 from resources.patient_reports import api as patient_reports_namespace
+import os
+import models
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["PROPAGATE_EXCEPTIONS"] = True
 db.init_app(app)

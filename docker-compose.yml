@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  api:
+    image: patient_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    restart: always
+    depends_on:
+      - db
+    environment:
+      POSTGRES_HOSTNAME: ${DATABASE_URL}
+
+  db:
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+
+volumes:
+  db-volume: {}

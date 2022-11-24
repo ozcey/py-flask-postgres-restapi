@@ -109,6 +109,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.flaskenv
 
 # Spyder project settings
 .spyderproject
@@ -131,3 +132,4 @@ dmypy.json
 request.json
 project_setup.md
 instance
+.vscode

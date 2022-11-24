@@ -4,3 +4,4 @@ marshmallow
 flask-sqlalchemy
 python-dotenv
 passlib
+psycopg2

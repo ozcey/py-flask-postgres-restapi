@@ -12,9 +12,9 @@ class PatientModel(db.Model):
     age = db.Column(db.Integer, nullable=False)
     gender = db.Column(db.String(7), nullable=False)
     address = db.relationship(
-        'AddressModel', backref='patients', uselist=False)
+        'AddressModel', backref='patients', cascade='all, delete-orphan', uselist=False)
     patient_reports = db.relationship(
-        'PatientReportsModel', backref='patients')
+        'PatientReportsModel', backref='patients', cascade='all, delete-orphan')
 
     @classmethod
     def find_by_id(cls, _id):
@@ -30,6 +30,10 @@ class PatientModel(db.Model):
 
     def save(self):
         db.session.add(self)
+        db.session.commit()
+    
+    def update(self):
+        db.session.merge(self)
         db.session.commit()
 
     def delete(self):
