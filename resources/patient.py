@@ -19,14 +19,11 @@ address_input = api.model(
 patient_input = api.model(
     'PatientFields',
     {
-        'first_name': fields.String(required=True),
-        'last_name': fields.String(required=True),
+        'name': fields.String(required=True),
         'ssn': fields.String(required=True),
         'email': fields.String(required=True),
         'phone': fields.String(required=True),
         'age': fields.Integer(required=True),
-        'height': fields.Integer(required=True),
-        'weight': fields.Integer(required=True),
         'gender': fields.String(required=True),
         'address': fields.Nested(address_input)
     }
@@ -60,14 +57,11 @@ class PatientList(Resource):
         patient_data = request.get_json()
         new_address = AddressModel(**patient_data['address'])
         new_patient = {
-            "first_name": patient_data['first_name'],
-            "last_name": patient_data['last_name'],
+            "name": patient_data['name'],
             "ssn": patient_data['ssn'],
             "email": patient_data['email'],
             "phone": patient_data['phone'],
             "age": patient_data['age'],
-            "height": patient_data['height'],
-            "weight": patient_data['weight'],
             "gender": patient_data['gender']
         }
         patient = PatientModel(**new_patient)

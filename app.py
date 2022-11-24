@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 from flask_restx import Api
 from db import db
 from resources.patient import api as patient_namespace
-from resources.patient_details import api as patient_details_namespace
+from resources.patient_reports import api as patient_reports_namespace
 
 app = Flask(__name__)
 
@@ -16,7 +16,7 @@ with app.app_context():
     db.create_all()
 
 api.add_namespace(patient_namespace, path='/patient')
-api.add_namespace(patient_details_namespace, path='/patient')
+api.add_namespace(patient_reports_namespace, path='/patient')
 
 @app.get('/')
 def health_info():

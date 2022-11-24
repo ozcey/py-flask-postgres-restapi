@@ -5,19 +5,16 @@ class PatientModel(db.Model):
     __tablename__ = 'patients'
 
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(80),  nullable=False)
-    last_name = db.Column(db.String(80), nullable=False)
+    name = db.Column(db.String(100),  nullable=False)
     ssn = db.Column(db.String(9), unique=True, nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     phone = db.Column(db.String(20), nullable=False)
     age = db.Column(db.Integer, nullable=False)
-    height = db.Column(db.Integer)
-    weight = db.Column(db.Integer)
     gender = db.Column(db.String(7), nullable=False)
     address = db.relationship(
         'AddressModel', backref='patients', uselist=False)
-    patient_details = db.relationship(
-        'PatientDetailsModel', backref='patients')
+    patient_reports = db.relationship(
+        'PatientReportsModel', backref='patients')
 
     @classmethod
     def find_by_id(cls, _id):
