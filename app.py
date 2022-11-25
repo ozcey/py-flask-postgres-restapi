@@ -1,6 +1,5 @@
 import os
 import models
-from models.customer import CustomerModel
 from flask import Flask
 from flask_restx import Api
 from resources.user import api as user_namespace

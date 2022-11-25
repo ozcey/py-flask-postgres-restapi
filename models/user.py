@@ -1,5 +1,5 @@
-from db import db
 from sqlalchemy.dialects.postgresql import ARRAY
+from config.db_configs import db
 
 
 class UserModel(db.Model):
