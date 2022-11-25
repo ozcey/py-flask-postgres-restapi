@@ -3,6 +3,7 @@ from flask_restx import Namespace, Resource, fields
 from models.patient import PatientModel
 from models.address import AddressModel
 from sqlalchemy.exc import SQLAlchemyError
+from flask_jwt_extended import jwt_required
 
 api = Namespace('Patients', description='Patient API operations')
 
@@ -48,10 +49,12 @@ patient_output = api.inherit(
     }
 )
 class PatientList(Resource):
+    @jwt_required()
     @api.marshal_list_with(patient_output)
     def get(self):
         return PatientModel.find_all()
 
+    @jwt_required()
     @api.expect(patient_input, validate=True)
     @api.marshal_with(patient_output)
     def post(self):
@@ -83,6 +86,7 @@ class PatientList(Resource):
     }
 )
 class Patient(Resource):
+    @jwt_required()
     @api.marshal_with(patient_output)
     def get(self, patient_id):
         patient = PatientModel.find_by_id(patient_id)
@@ -90,6 +94,7 @@ class Patient(Resource):
             abort(404, f'Patient not found with id {patient_id}')
         return patient        
 
+    @jwt_required()
     @api.expect(patient_input, validate=True)
     @api.marshal_with(patient_output)
     def put(self, patient_id):
@@ -113,7 +118,8 @@ class Patient(Resource):
         except SQLAlchemyError as e:
             abort(400, 'An error occurred while updating patient')
         return patient
-    
+
+    @jwt_required()
     def delete(self, patient_id):
         patient = PatientModel.find_by_id(patient_id)
         if not patient:
@@ -121,5 +127,5 @@ class Patient(Resource):
         try:
             patient.delete()
         except SQLAlchemyError:
-            abort(500, 'An error occurred while deleting patient')
+            abort(400, 'An error occurred while deleting patient')
         return {'message': 'Patient deleted successfully!'}
