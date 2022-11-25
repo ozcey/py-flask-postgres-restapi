@@ -12,7 +12,7 @@
 ### Setup
 
 
-The project link [GitHub link](https://github.com/ozcey/py-flask-postgres-restapi.git) or  clone the project using the following command. 
+The project link here [GitHub link](https://github.com/ozcey/py-flask-postgres-restapi.git) or  clone the project using the following command. 
 
 
 ```
@@ -22,18 +22,9 @@ The project link [GitHub link](https://github.com/ozcey/py-flask-postgres-restap
 ```
 
 
-## Install Dependencies
+## Install Dependencies and Running App
 
 Install Python v3
-
-
-To install dependecies, run the following command in terminal:
-
-
-```
-pip install -r requirements.txt
-```
-
 
 To create virtual envrionment, run the following command in terminal:
 
@@ -42,6 +33,13 @@ To create virtual envrionment, run the following command in terminal:
 python -m venv .venv
 ```
 
+
+To install dependecies, run the following command in terminal:
+
+
+```
+pip install -r requirements.txt
+```
 
 To run the application
 
