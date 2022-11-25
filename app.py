@@ -1,12 +1,12 @@
 from flask import Flask, jsonify, abort
 from flask_restx import Api
+import os
 from db import db
 from resources.user import api as user_namespace
 from resources.patient import api as patient_namespace
 from resources.patient_reports import api as patient_reports_namespace
 from resources.health import api as health_namespace
 from flask_jwt_extended import JWTManager
-import os
 import models
 from models.user import UserModel
 from dotenv import load_dotenv
