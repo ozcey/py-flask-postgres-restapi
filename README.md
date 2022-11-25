@@ -16,8 +16,6 @@ The project link here [GitHub link](https://github.com/ozcey/py-flask-postgres-r
 
 
 ```
-
-
 # git clone https://github.com/ozcey/py-flask-postgres-restapi.git
 ```
 
