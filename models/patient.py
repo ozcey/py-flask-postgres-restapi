@@ -1,5 +1,4 @@
-from db import db
-
+from config.db_configs import db
 
 class PatientModel(db.Model):
     __tablename__ = 'patients'
