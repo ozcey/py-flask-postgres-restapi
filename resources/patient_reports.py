@@ -64,7 +64,7 @@ class PatientReportsList(Resource):
     responses={
         404: 'Patient not found',
         400: 'Bad request',
-        500: 'An error occurred while creating patient'
+        500: 'An error occurred while updating patient detail'
     }
 )
 class PatientReports(Resource):

@@ -101,7 +101,7 @@ class UserLogin(Resource):
     responses={
         404: 'User not found',
         400: 'Bad request',
-        500: 'An error occurred while registering user'
+        500: 'An error occurred while updating user'
     }
 )
 class User(Resource):

@@ -1,4 +1,3 @@
-import os
 import models
 from flask import Flask
 from flask_restx import Api
