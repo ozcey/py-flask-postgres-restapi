@@ -4,6 +4,7 @@ from models.patient import PatientModel
 from models.patient_reports import PatientReportsModel
 from sqlalchemy.exc import SQLAlchemyError
 from flask_jwt_extended import jwt_required
+import datetime
 
 api = Namespace('Patients reports', description='Patient reports API operations')
 
@@ -27,6 +28,15 @@ patient_reports_output = api.inherit(
     }
 
 )
+
+# TODO: implement unix timestamp
+def convert_unix_timestamp(date):
+    timestamp = 0
+    try:
+        timestamp = datetime.datetime.strptime(date, '%d/%m/%Y').timestamp()
+    except ValueError:
+        abort(400, 'date format does not match')
+    return timestamp
 
 @api.route('/<patient_id>/details')
 @api.doc(
