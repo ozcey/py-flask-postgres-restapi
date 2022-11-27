@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   api:
-    image: patient_app
+    image: patient_management_app
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,7 +12,13 @@ services:
     depends_on:
       - db
     environment:
-      POSTGRES_HOSTNAME: ${DATABASE_URL}
+      POSTGRES_HOSTNAME: ${DB_HOST}
+      POSTGRES_PORT: ${DB_PORT}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    networks:
+      -  patient-app-network
 
   db:
     image: postgres:12
@@ -24,7 +30,12 @@ services:
       POSTGRES_PASSWORD: ${DB_PASS}
       POSTGRES_DB: ${DB_NAME}
     volumes:
-      - db-volume:/var/lib/postgresql/data
+      - patient-db-volume:/var/lib/postgresql/data
+    networks:
+      -  patient-app-network
 
 volumes:
-  db-volume: {}
+  patient-db-volume: {}
+
+networks:
+  patient-app-network: {}
