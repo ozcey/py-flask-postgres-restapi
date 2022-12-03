@@ -39,8 +39,14 @@ To install dependecies, run the following command in terminal:
 pip install -r requirements.txt
 ```
 
-To run the application
+To run the application locally
 
 ```
 flask run
+```
+
+To run the application on Docker
+
+```
+docker-compose up --build
 ```
