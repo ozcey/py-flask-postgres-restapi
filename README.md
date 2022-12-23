@@ -48,5 +48,5 @@ flask run
 To run the application on Docker
 
 ```
-docker-compose up --build
+docker-compose up
 ```
