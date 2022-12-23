@@ -21,10 +21,10 @@ set_jwt_configs(app)
 # Create tables
 create_tables(app)
 # Namespaces
-api.add_namespace(patient_namespace, path='/patient')
-api.add_namespace(patient_reports_namespace, path='/patient')
-api.add_namespace(user_namespace, path='/user')
-api.add_namespace(health_namespace, path='/health')
+api.add_namespace(patient_namespace, path='/api/patient')
+api.add_namespace(patient_reports_namespace, path='/api/patient')
+api.add_namespace(user_namespace, path='/api/user')
+api.add_namespace(health_namespace, path='/api/health')
 
 
 if __name__ == '__main__':
