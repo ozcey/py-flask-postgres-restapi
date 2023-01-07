@@ -15,7 +15,10 @@ app = Flask(__name__)
 # DB config
 set_db_configs(app)
 # Flask-restx config
-api = Api(app,version='1.0',title='Patient Management APP', description='Patient API')
+authorizations = {"Bearer": {"type": "apiKey",
+                             "in": "header", "name": "Authorization"}}
+api = Api(app, version='1.0', title='Patient Management APP',
+          description='Patient API', authorizations=authorizations, security='Bearer')
 # JWT configs
 set_jwt_configs(app)
 # Create tables
