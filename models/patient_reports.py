@@ -1,6 +1,8 @@
 from config.db_configs import db
+from models.base import BaseModel
 
-class PatientReportsModel(db.Model):
+
+class PatientReportsModel(BaseModel):
     __tablename__ = 'patient_reports'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -14,21 +16,5 @@ class PatientReportsModel(db.Model):
         'patients.id'), nullable=False)
     
     @classmethod
-    def find_by_id(cls, _id):
-        return cls.query.filter_by(id=_id).first()
-    
-    @classmethod
     def find_by_patient_id(cls, patient_id):
         return cls.query.filter_by(patient_id=patient_id).all()
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-
-    def update(self):
-        db.session.merge(self)
-        db.session.commit()
-        
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
