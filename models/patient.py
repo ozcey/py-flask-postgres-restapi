@@ -1,6 +1,8 @@
 from config.db_configs import db
+from models.base import BaseModel
 
-class PatientModel(db.Model):
+
+class PatientModel(BaseModel):
     __tablename__ = 'patients'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -16,26 +18,5 @@ class PatientModel(db.Model):
         'PatientReportsModel', backref='patients', cascade='all, delete-orphan')
 
     @classmethod
-    def find_by_id(cls, _id):
-        return cls.query.filter_by(id=_id).first()
-
-    @classmethod
     def find_by_ssn(cls, ssn):
         return cls.query.filter_by(ssn=ssn).first()
-    
-    @classmethod
-    def find_all(cls):
-        return cls.query.all()
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-    
-    def update(self):
-        db.session.merge(self)
-        db.session.commit()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
